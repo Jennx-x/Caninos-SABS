@@ -19,9 +19,7 @@ export const HomePage = () => {
             <Link to="/productos" className="btn btn-warning btn-lg mr-3">
               <i className="bi bi-basket-fill mr-2"></i> Ver Nuestros Productos
             </Link>
-            <Link to="/servicios" className="btn btn-success btn-lg">
-              <i className="bi bi-scissors mr-2"></i> Conocer Nuestros Servicios
-            </Link>
+            
           </div>
         </div>
       </div>

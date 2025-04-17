@@ -1,4 +1,4 @@
-// src/features/products/pages/ProductsPage.jsx
+
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import {ProductsList} from '../components/ProductsList';

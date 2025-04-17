@@ -1,7 +1,6 @@
-// src/features/products/components/ProductList.jsx
 import React, { useState, useEffect } from 'react';
-import { getProducts } from '../services/product.service'; // ¡RUTA AJUSTADA!
-import { Link } from 'react-router-dom';
+import { getProducts } from '../services/product.service';
+import { Row, Col, Card } from 'react-bootstrap';
 
 export const ProductsList = () => {
   const [products, setProducts] = useState([]);
@@ -14,7 +13,8 @@ export const ProductsList = () => {
       setError(null);
       try {
         const data = await getProducts();
-        setProducts(data);
+        console.log('DATA RECIBIDA EN ProductsList:', data);
+        setProducts(data.products || []);
       } catch (err) {
         setError('Error al cargar los productos.');
         console.error('Error:', err);
@@ -45,16 +45,18 @@ export const ProductsList = () => {
         {products.map(product => (
           <Col key={product.id}>
             <Card className="shadow-sm h-100">
-              {product.imageUrl && (
-                <Card.Img variant="top" src={product.imageUrl} alt={product.name} style={{ height: '200px', objectFit: 'cover' }} />
-              )}
+              <Card.Img
+                variant="top"
+                src={product.imageUrl || 'https://via.placeholder.com/300x200?text=Sin+Imagen'}
+                alt={product.name}
+                style={{ height: '200px', objectFit: 'cover' }}
+              />
               <Card.Body className="d-flex flex-column">
                 <Card.Title className="text-primary">{product.name}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">${product.price}</Card.Subtitle>
-                <Card.Text className="mb-auto text-secondary">{product.description?.substring(0, 100)}...</Card.Text>
-                <div className="mt-3">
-                  <Button variant="outline-success" size="sm">Ver Más</Button>
-                </div>
+                <Card.Text className="mb-auto text-secondary">
+                  {product.description?.substring(0, 100)}...
+                </Card.Text>
               </Card.Body>
             </Card>
           </Col>
@@ -63,4 +65,3 @@ export const ProductsList = () => {
     </div>
   );
 };
-

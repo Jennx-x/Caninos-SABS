@@ -4,7 +4,7 @@ import { Form, Button, Container, Alert } from 'react-bootstrap';
 import { login } from '../services/auth.service';
 
 export const LoginPage = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -14,14 +14,15 @@ export const LoginPage = () => {
     setError('');
     try {
       const credentials = {
-        username: username,
+        email: email, 
         password: password,
       };
+      console.log('Credenciales enviadas');
       const response = await login(credentials);
-      // El token ya se guarda en localStorage dentro del servicio 'login'
-      navigate('/admin'); // Redirige al panel de administración
+      localStorage.setItem('token', response.token);
+      navigate('/admin');
     } catch (err) {
-      setError('Credenciales inválidas');
+      setError('Usuario o contraseña incorrectos'); 
       console.error('Error de inicio de sesión:', err);
     }
   };
@@ -31,13 +32,13 @@ export const LoginPage = () => {
       <h1>Acceder</h1>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicUsername">
-          <Form.Label>Usuario</Form.Label>
+        <Form.Group className="mb-3" controlId="formBasicEmail"> 
+          <Form.Label>Correo Electrónico</Form.Label>
           <Form.Control
-            type="text"
-            placeholder="Ingrese su usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            type="email" 
+            placeholder="Ingrese su correo electrónico"
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
           />
         </Form.Group>
 
@@ -52,7 +53,7 @@ export const LoginPage = () => {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Acceder
+          Ingresar
         </Button>
       </Form>
     </Container>

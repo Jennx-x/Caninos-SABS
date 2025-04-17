@@ -5,7 +5,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { HomePage } from '../features/home/pages/HomePage';
 import { AboutUsPage } from '../features/about-us/pages/AboutUsPage';
 import { ProductsPage } from '../features/products/pages/ProductsPage';
-import { CategoriesPage } from '../features/categories/pages/CategoriesPages';
+import { CategoriesPage } from '../features/categories/pages/CategoriesPage';
 import { LoginPage } from '../features/auth/pages/LoginPage';
 
 // Importa los componentes de página del Dashboard

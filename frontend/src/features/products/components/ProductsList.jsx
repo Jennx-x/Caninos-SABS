@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { getProducts } from '../services/product.service';
-import { Row, Col, Card } from 'react-bootstrap';
+import { Row, Col, Card, Button, Modal } from 'react-bootstrap';
 
 export const ProductsList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -25,6 +27,16 @@ export const ProductsList = () => {
 
     fetchProducts();
   }, []);
+
+  const handleShowModal = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedProduct(null);
+  };
 
   if (loading) {
     return <div className="text-center py-5">Cargando...</div>;
@@ -55,13 +67,60 @@ export const ProductsList = () => {
                 <Card.Title className="text-primary">{product.name}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">${product.price}</Card.Subtitle>
                 <Card.Text className="mb-auto text-secondary">
-                  {product.description?.substring(0, 100)}...
+                  {product.description?.substring(0, 150)}...
                 </Card.Text>
+                <Button 
+                  variant="outline-primary" 
+                  onClick={() => handleShowModal(product)}
+                  className="mt-3"
+                >
+                  Ver más
+                </Button>
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
+
+      {/* Modal para mostrar más información */}
+      <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
+        {selectedProduct && (
+          <>
+            <Modal.Header closeButton>
+              <Modal.Title>{selectedProduct.name}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Row>
+                <Col md={6}>
+                  <img
+                    src={selectedProduct.imageUrl || 'https://via.placeholder.com/500x300?text=Sin+Imagen'}
+                    alt={selectedProduct.name}
+                    className="img-fluid rounded mb-3"
+                  />
+                </Col>
+                <Col md={6}>
+                  <h4 className="text-primary">Detalles del Producto</h4>
+                  <p className="text-muted">Precio: ${selectedProduct.price}</p>
+                  <p className="text-secondary">{selectedProduct.description}</p>
+                  
+                  {/* Puedes agregar más campos aquí según tu modelo de producto */}
+                  {selectedProduct.category && (
+                    <p className="text-muted">Categoría: {selectedProduct.category}</p>
+                  )}
+                  {selectedProduct.stock && (
+                    <p className="text-muted">Stock disponible: {selectedProduct.stock}</p>
+                  )}
+                </Col>
+              </Row>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseModal}>
+                Cerrar
+              </Button>
+            </Modal.Footer>
+          </>
+        )}
+      </Modal>
     </div>
   );
 };

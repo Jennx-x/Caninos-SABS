@@ -1,60 +1,74 @@
-// src/features/about-us/pages/AboutUsPage.jsx
 import React from 'react';
-import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
 
-function AboutUsPage() {
+export const AboutUsPage = () => {
   return (
-    <Container className="mt-5">
-      <h1 className="text-center mb-4">Quiénes Somos</h1>
-      <Row className="justify-content-center">
-        <Col md={8}>
-          <Card className="shadow-sm">
-            <Card.Body>
-              <Card.Title className="mb-3">Nuestra Historia</Card.Title>
-              <Card.Text>
-                En Caninos SABS, nuestra pasión por los animales nos impulsa a ofrecer productos y servicios excepcionales para el cuidado y bienestar de tus mascotas.
-                Fundada en [Año de Fundación] por [Nombre del Fundador/Motivación], nuestra empresa nació con la visión de [Declaración de la Visión Inicial].
-              </Card.Text>
-              <Card.Text>
-                A lo largo de los años, hemos crecido y evolucionado, siempre manteniendo nuestro compromiso con la calidad, la innovación y, sobre todo, el amor por los caninos y otras mascotas.
-                Nuestro equipo está formado por profesionales dedicados que comparten esta misma pasión y trabajan arduamente para brindarte lo mejor.
-              </Card.Text>
-              {/* Puedes agregar más párrafos sobre la historia, hitos importantes, etc. */}
-            </Card.Body>
-          </Card>
+    <div className="container mt-5">
+      <h1 className="text-center mb-5 display-3 text-info">🐾 Nuestra Historia y Pasión Canina 🦴</h1>
 
-          <Row className="mt-4">
-            <Col md={6}>
-              <Card className="shadow-sm">
-                <Card.Body>
-                  <Card.Title className="mb-3">Nuestra Misión</Card.Title>
-                  <Card.Text>
-                    Nuestra misión es mejorar la calidad de vida de las mascotas y fortalecer el vínculo entre ellas y sus dueños, proporcionando productos de alta calidad, servicios confiables y un conocimiento experto que contribuya a su salud y felicidad.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={6}>
-              <Card className="shadow-sm">
-                <Card.Body>
-                  <Card.Title className="mb-3">Nuestros Valores</Card.Title>
-                  <ListGroup variant="flush">
-                    <ListGroup.Item><strong>Calidad:</strong> Nos esforzamos por ofrecer productos y servicios que cumplan con los más altos estándares.</ListGroup.Item>
-                    <ListGroup.Item><strong>Compromiso:</strong> Estamos dedicados a satisfacer las necesidades de nuestros clientes y sus mascotas.</ListGroup.Item>
-                    <ListGroup.Item><strong>Pasión:</strong> Nuestro amor por los animales es el motor que impulsa todo lo que hacemos.</ListGroup.Item>
-                    <ListGroup.Item><strong>Confianza:</strong> Buscamos construir relaciones duraderas basadas en la honestidad y la transparencia.</ListGroup.Item>
-                    {/* Agrega los valores específicos de tu empresa como ListGroup.Item */}
-                  </ListGroup>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
+      <div className="row justify-content-center">
+        <div className="col-md-10">
+          <section className="p-5 mb-4 bg-white shadow rounded border-start border-4 border-info">
+            <h2 className="text-success text-center mb-3">
+              <i className="bi bi-house-fill me-2"></i> Nuestros Orígenes en Copacabana
+            </h2>
+            <p className="lead text-secondary">
+              En el corazón de <span className="fw-bold text-primary">Copacabana, Antioquia</span>, donde la naturaleza y el amor por los animales convergen, nació <span className="fw-bold text-primary">Caninos SABS</span>.
+            </p>
+            <p className="text-muted">
+              Impulsados por una profunda conexión con los caninos y la visión de un cuidado superior, nuestra fundación por [Nombre del Fundador/Grupo de Fundadores] marcó el inicio de un hermoso viaje.
+            </p>
+            <blockquote className="blockquote text-center my-4">
+              <p className="fst-italic text-primary">"Un compromiso inquebrantable con el bienestar de cada peludo amigo."</p>
+              <footer className="blockquote-footer"><cite title="Fundadores de Caninos SABS">Fundadores de Caninos SABS</cite></footer>
+            </blockquote>
+            <p className="text-muted">
+              Desde una modesta tienda local, nuestra meta fue clara: ofrecer productos de alta calidad y un equipo que realmente comparte el amor por las mascotas. La calidad y la atención al cliente fueron nuestras bases.
+            </p>
+          </section>
 
-          {/* Puedes agregar más secciones como "Nuestro Equipo" o "Nuestra Visión" aquí utilizando más componentes de Card y Row/Col */}
-        </Col>
-      </Row>
-    </Container>
+          <div className="row g-4">
+            <div className="col-md-6">
+              <section className="p-4 bg-light rounded shadow border-start border-4 border-success">
+                <h3 className="text-center text-success mb-3">
+                  <i className="bi bi-binoculars-fill me-2"></i> Nuestra Misión: Enriquecer Vidas Caninas
+                </h3>
+                <p className="text-info">
+                  En <span className="fw-bold text-primary">Caninos SABS</span>, nuestra misión es clara: enriquecer la vida de los caninos y fortalecer su vínculo con sus dueños, ofreciendo productos y servicios de calidad con amor y conocimiento.
+                </p>
+              </section>
+            </div>
+
+            <div className="col-md-6">
+              <section className="p-4 bg-light rounded shadow border-start border-4 border-warning">
+                <h3 className="text-center text-warning mb-3">
+                  <i className="bi bi-values me-2"></i> Nuestros Valores Clave
+                </h3>
+                <ul className="list-unstyled text-secondary">
+                  <li><i className="bi bi-heart-fill text-danger me-2"></i> Amor y Respeto Animal</li>
+                  <li><i className="bi bi-gem text-success me-2"></i> Calidad Superior</li>
+                  <li><i className="bi bi-community-fill text-info me-2"></i> Compromiso Comunitario</li>
+                  <li><i className="bi bi-handshake-fill text-primary me-2"></i> Integridad y Transparencia</li>
+                  <li><i className="bi bi-rocket-fill text-warning me-2"></i> Innovación Continua</li>
+                  <li><i className="bi bi-person-heart text-success me-2"></i> Atención Personalizada</li>
+                </ul>
+              </section>
+            </div>
+          </div>
+
+          <section className="p-4 bg-light rounded shadow mt-4 border-start border-4 border-primary">
+            <h3 className="text-center text-primary mb-3">
+              <i className="bi bi-people-fill me-2"></i> Nuestro Equipo: Pasión en Acción
+            </h3>
+            <p className="text-secondary">
+              Detrás de <span className="fw-bold text-info">Caninos SABS</span> hay un equipo dedicado de amantes de los animales. Expertos en nutrición, comportamiento, groomers y personal de atención al cliente trabajando con un compromiso común.
+            </p>
+            <blockquote className="blockquote text-center my-4">
+              <p className="fst-italic text-success">"Dedicación y experiencia unidas por un amor genuino por los caninos."</p>
+              <footer className="blockquote-footer"><cite title="Equipo de Caninos SABS">El Equipo de Caninos SABS</cite></footer>
+            </blockquote>
+          </section>
+        </div>
+      </div>
+    </div>
   );
-}
-
-export default AboutUsPage;
+};

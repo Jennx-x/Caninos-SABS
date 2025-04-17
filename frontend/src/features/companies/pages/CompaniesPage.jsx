@@ -1,7 +1,9 @@
 import React from 'react'
 
-export const CompaniesPage = () => {
+ const CompaniesPage = () => {
   return (
     <div>CompaniesPage</div>
   )
 }
+
+export default CompaniesPage

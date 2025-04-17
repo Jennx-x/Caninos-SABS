@@ -1,6 +1,6 @@
 import React from 'react';
 import AppRouter from './router/AppRouter';
-import {NavigationBar} from './shared/componentes/NavigationBar';
+import {NavigationBar} from './shared/components/NavigationBar';
 
 function App() {
   return <>

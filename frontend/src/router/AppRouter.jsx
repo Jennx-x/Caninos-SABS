@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 
 // Importa los componentes de página de la Landing Page
 import { HomePage } from '../features/home/pages/HomePage';
@@ -13,10 +13,13 @@ import { AdminDashboard } from '../features/admin/pages/AdminDashboard';
 import { ProductsAdmin } from '../features/admin/pages/ProductsAdmin';
 import { UsersAdmin } from '../features/admin/pages/UsersAdmin';
 import { RolesAdmin } from '../features/admin/pages/RolesAdmin';
-import { CompaniesPage } from '../features/companies/pages/CompaniesPage'; 
+import { CompaniesPage } from '../features/companies/pages/CompaniesPage';
 
 // Importa el servicio de autenticación
 import { isAuthenticated } from '../features/auth/services/auth.service';
+
+// Importa el Layout del Admin
+import { AdminLayout } from '../layouts/AdminLayout';
 
 // Componente para proteger rutas privadas
 const PrivateRoute = ({ children }) => {
@@ -25,7 +28,6 @@ const PrivateRoute = ({ children }) => {
 
 const AppRouter = () => {
   return (
-    <> {/* Usamos un Fragment para envolver el Routes */}
       <Routes>
         {/* Rutas Públicas (Landing Page) */}
         <Route path="/" element={<HomePage />} />
@@ -35,49 +37,16 @@ const AppRouter = () => {
         <Route path="/login" element={<LoginPage />} />
 
         {/* Rutas Privadas (Sistema Administrativo) */}
-        <Route
-          path="/admin"
-          element={
-            <PrivateRoute>
-              <AdminDashboard />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/admin/productos"
-          element={
-            <PrivateRoute>
-              <ProductsAdmin />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/admin/usuarios"
-          element={
-            <PrivateRoute>
-              <UsersAdmin />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/admin/roles"
-          element={
-            <PrivateRoute>
-              <RolesAdmin />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/admin/companies"
-          element={
-            <PrivateRoute>
-              <CompaniesPage /> 
-            </PrivateRoute>
-          }
-        />
-        {/* Agrega aquí más rutas privadas según tus necesidades */}
+        <Route path="/admin" element={<PrivateRoute><AdminLayout /></PrivateRoute>}>
+          <Route index element={<AdminDashboard />} /> {/* Página principal del admin */}
+          <Route path="usuarios" element={<UsersAdmin />} />
+          <Route path="roles" element={<RolesAdmin />} />
+          <Route path="companies" element={<CompaniesPage />} />
+          <Route path="productos" element={<ProductsAdmin />} />
+          <Route path="categorias" element={<CategoriesPage />} />
+          {/* Agrega aquí más rutas privadas */}
+        </Route>
       </Routes>
-    </>
   );
 };
 

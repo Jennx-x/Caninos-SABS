@@ -13,7 +13,7 @@ import { AdminDashboard } from '../features/admin/pages/AdminDashboard';
 import { ProductsAdmin } from '../features/admin/pages/ProductsAdmin';
 import { UsersAdmin } from '../features/admin/pages/UsersAdmin';
 import { RolesAdmin } from '../features/admin/pages/RolesAdmin';
-import { CompaniesPage } from '../features/companies/pages/CompaniesPage'; // Asegúrate de que la ruta sea correcta
+import { CompaniesPage } from '../features/companies/pages/CompaniesPage'; 
 
 // Importa el servicio de autenticación
 import { isAuthenticated } from '../features/auth/services/auth.service';
@@ -71,7 +71,7 @@ const AppRouter = () => {
           path="/admin/companies"
           element={
             <PrivateRoute>
-              <CompaniesPage /> {/* Asegúrate de que el nombre del componente sea correcto */}
+              <CompaniesPage /> 
             </PrivateRoute>
           }
         />

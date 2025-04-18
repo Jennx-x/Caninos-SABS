@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getProducts } from '../services/product.service';
+import { getProducts } from '../../admin/services/product.service';
 import { Row, Col, Card, Button, Modal } from 'react-bootstrap';
 
 export const ProductsList = () => {

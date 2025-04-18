@@ -2,10 +2,10 @@ import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 // Importa los componentes de página de la Landing Page
-import { HomePage } from '../features/home/pages/HomePage';
-import { AboutUsPage } from '../features/about-us/pages/AboutUsPage';
-import { ProductsPage } from '../features/products/pages/ProductsPage';
-import { CategoriesPage } from '../features/categories/pages/CategoriesPage';
+import { HomePage } from '../features/landingPage/pages/HomePage';
+import { AboutUsPage } from '../features/landingPage/pages/AboutUsPage';
+import { ProductsPage } from '../features/landingPage/pages/ProductsPage';
+import { CategoriesPage } from '../features/landingPage/pages/CategoriesPage';
 import { LoginPage } from '../features/auth/pages/LoginPage';
 
 // Importa los componentes de página del Dashboard

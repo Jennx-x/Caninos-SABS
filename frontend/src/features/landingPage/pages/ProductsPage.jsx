@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import {ProductsList} from '../components/ProductsList';
+import { ProductsList } from '../components/ProductsList';
 export const ProductsPage = () => {
   return (
     <Container className="mt-5">

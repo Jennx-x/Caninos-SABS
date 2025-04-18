@@ -13,7 +13,7 @@ import { AdminDashboard } from '../features/admin/pages/AdminDashboard';
 import { ProductsAdmin } from '../features/admin/pages/ProductsAdmin';
 import { UsersAdmin } from '../features/admin/pages/UsersAdmin';
 import { RolesAdmin } from '../features/admin/pages/RolesAdmin';
-import { CompaniesPage } from '../features/companies/pages/CompaniesPage';
+import { CompaniesAdmin } from '../features/admin/pages/CompaniesAdmin';
 
 // Importa el servicio de autenticación
 import { isAuthenticated } from '../features/auth/services/auth.service';
@@ -50,7 +50,7 @@ const AppRouter = () => {
           <Route index element={<AdminDashboard />} /> {/* Página principal del admin */}
           <Route path="usuarios" element={<UsersAdmin />} />
           <Route path="roles" element={<RolesAdmin />} />
-          <Route path="companies" element={<CompaniesPage />} />
+          <Route path="companies" element={<CompaniesAdmin />} />
           <Route path="productos" element={<ProductsAdmin />} />
           <Route path="categorias" element={<CategoriesPage />} />
           {/* Agrega aquí más rutas privadas */}

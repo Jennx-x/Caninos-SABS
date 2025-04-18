@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table, Button, Modal, Form, Alert } from 'react-bootstrap';
-import { getRoles, postRoles, updateRole, deleteRole } from '../services/roles.service';
+import { getCompanies, postCompanies, updateCompany, deleteCompany } from '../services/companies.service';
 
-export const RolesAdmin = () => {
-  const [roles, setRoles] = useState([]);
+export const CompaniesAdmin = () => {
+  const [companies, setCompanies] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState('create'); // 'create' or 'edit'
-  const [currentRole, setCurrentRole] = useState({ name: '', description: '' }); // Añadida 'description' al estado
+  const [currentCompany, setCurrentCompany] = useState({ name: '', nit: '', address: '' }); // Añadido 'nit' al estado inicial
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchRoles();
+    fetchCompanies();
   }, []);
 
-  const fetchRoles = async () => {
+  const fetchCompanies = async () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await getRoles();
-      setRoles(data);
+      const data = await getCompanies();
+      setCompanies(data);
     } catch (err) {
-      setError(err.message || 'Error al cargar roles');
+      setError(err.message || 'Error al cargar compañías');
     } finally {
       setLoading(false);
     }
@@ -29,13 +29,13 @@ export const RolesAdmin = () => {
 
   const openCreateModal = () => {
     setModalMode('create');
-    setCurrentRole({ name: '', description: '' }); // Añadida 'description' al estado inicial del modal de creación
+    setCurrentCompany({ name: '', nit: '', address: '' }); // Añadido 'nit' al estado inicial del modal de creación
     setShowModal(true);
   };
 
-  const openEditModal = (role) => {
+  const openEditModal = (company) => {
     setModalMode('edit');
-    setCurrentRole({ ...role });
+    setCurrentCompany({ ...company });
     setShowModal(true);
   };
 
@@ -45,43 +45,43 @@ export const RolesAdmin = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCurrentRole(prevRole => ({ ...prevRole, [name]: value }));
+    setCurrentCompany(prevCompany => ({ ...prevCompany, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (modalMode === 'create') {
       try {
-        await postRoles(currentRole);
-        fetchRoles();
+        await postCompanies(currentCompany);
+        fetchCompanies();
         closeModal();
       } catch (err) {
-        setError(err.message || 'Error al crear rol');
+        setError(err.message || 'Error al crear compañía');
       }
     } else if (modalMode === 'edit') {
       try {
-        await updateRole(currentRole.id, currentRole);
-        fetchRoles();
+        await updateCompany(currentCompany.id, currentCompany);
+        fetchCompanies();
         closeModal();
       } catch (err) {
-        setError(err.message || 'Error al actualizar rol');
+        setError(err.message || 'Error al actualizar compañía');
       }
     }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('¿Estás seguro de que deseas eliminar este rol?')) {
+    if (window.confirm('¿Estás seguro de que deseas eliminar esta compañía?')) {
       try {
-        await deleteRole(id);
-        fetchRoles();
+        await deleteCompany(id);
+        fetchCompanies();
       } catch (err) {
-        setError(err.message || 'Error al eliminar rol');
+        setError(err.message || 'Error al eliminar compañía');
       }
     }
   };
 
   if (loading) {
-    return <Container className="mt-5">Cargando roles...</Container>;
+    return <Container className="mt-5">Cargando compañías...</Container>;
   }
 
   if (error) {
@@ -90,29 +90,31 @@ export const RolesAdmin = () => {
 
   return (
     <Container className="mt-5">
-      <h2 className="mb-4">Gestión de Roles</h2>
+      <h2 className="mb-4">Gestión de Compañías</h2>
       <Button variant="primary" className="mb-3" onClick={openCreateModal}>
-        Crear Nuevo Rol
+        Crear Nueva Compañía
       </Button>
       <Table striped bordered hover>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Nombre del Rol</th>
-            <th>Descripción</th> {/* Añadida columna para la descripción */}
+            <th>Nombre de la Compañía</th>
+            <th>NIT</th> {/* Añadida columna para el NIT */}
+            <th>Dirección</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {roles.map(role => (
-            <tr key={role.id}>
-              <td>{role.id}</td>
-              <td>{role.name}</td>
-              <td>{role.description}</td> {/* Muestra la descripción en la tabla */}
+          {companies.map(company => (
+            <tr key={company.id}>
+              <td>{company.id}</td>
+              <td>{company.name}</td>
+              <td>{company.nit}</td> {/* Muestra el NIT en la tabla */}
+              <td>{company.address}</td>
               <td>
                 <div className="d-flex gap-2">
-                  <Button variant="info" size="sm" className="me-2" onClick={() => openEditModal(role)}>Editar</Button>
-                  <Button variant="danger" size="sm" onClick={() => handleDelete(role.id)}>Eliminar</Button>
+                  <Button variant="info" size="sm" onClick={() => openEditModal(company)}>Editar</Button>
+                  <Button variant="danger" size="sm" onClick={() => handleDelete(company.id)}>Eliminar</Button>
                 </div>
               </td>
             </tr>
@@ -121,26 +123,36 @@ export const RolesAdmin = () => {
       </Table>
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>{modalMode === 'create' ? 'Crear Nuevo Rol' : 'Editar Rol'}</Modal.Title>
+          <Modal.Title>{modalMode === 'create' ? 'Crear Nueva Compañía' : 'Editar Compañía'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
-              <Form.Label>Nombre del Rol</Form.Label>
+              <Form.Label>Nombre de la Compañía</Form.Label>
               <Form.Control
                 type="text"
                 name="name"
-                value={currentRole.name}
+                value={currentCompany.name}
                 onChange={handleInputChange}
                 required
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Descripción</Form.Label>
+              <Form.Label>NIT</Form.Label>
               <Form.Control
                 type="text"
-                name="description"
-                value={currentRole.description}
+                name="nit"
+                value={currentCompany.nit}
+                onChange={handleInputChange}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Dirección</Form.Label>
+              <Form.Control
+                type="text"
+                name="address"
+                value={currentCompany.address}
                 onChange={handleInputChange}
               />
             </Form.Group>

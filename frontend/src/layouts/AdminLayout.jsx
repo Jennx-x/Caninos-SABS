@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Sidebar } from '../shared/components/Sidebar';
 import { Outlet } from 'react-router-dom';
-import AdminNavbar from '../features/admin/components/AdminNavbar'; // Importa AdminNavbar
+import AdminNavbar from '../features/admin/components/AdminNavbar';
 
 export const AdminLayout = () => {
   return (

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Table, Button, Modal, Form, Alert } from 'react-bootstrap';
 import { getUsers, postUsers, updateUser, deleteUser } from '../services/users.service';
 import { getRoles } from '../services/roles.service';
-import { getCompanies } from '../../companies/services/companies.service';
+import { getCompanies } from '../services/companies.service';
 
 export const UsersAdmin = () => {
   const [users, setUsers] = useState([]);
@@ -132,7 +132,7 @@ export const UsersAdmin = () => {
               <td>{getRoleName(user.roleId)}</td>
               <td>{getCompanyName(user.companyId)}</td>
               <td>
-                <div className="d-flex gap-2"> {/* Contenedor para los botones con espacio */}
+                <div className="d-flex gap-2">
                   <Button variant="info" size="sm" onClick={() => openEditModal(user)}>Editar</Button>
                   <Button variant="danger" size="sm" onClick={() => handleDelete(user.id)}>Eliminar</Button>
                 </div>
@@ -195,14 +195,19 @@ export const UsersAdmin = () => {
               </Form.Control>
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Compañía ID</Form.Label>
+              <Form.Label>Compañía</Form.Label>
               <Form.Control
-                type="number"
+                as="select"
                 name="companyId"
                 value={currentUser.companyId}
                 onChange={handleInputChange}
                 required
-              />
+              >
+                <option value="">Seleccionar Compañía</option>
+                {companies.map(company => (
+                  <option key={company.id} value={company.id}>{company.name}</option>
+                ))}
+              </Form.Control>
             </Form.Group>
             <Button variant="primary" type="submit">
               {modalMode === 'create' ? 'Crear' : 'Guardar Cambios'}

@@ -1,12 +1,13 @@
 import React from 'react';
 import { Nav, NavItem, NavLink } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 
 export const Sidebar = () => {
   return (
     <div className="bg-light text-dark p-3 d-flex flex-column vh-100">
-      <h5 className="mb-4 text-info fw-semibold border-bottom pb-2">Panel de Control</h5>
+      <Link to="/admin" className="text-decoration-none"> {/* Enlace al Dashboard */}
+        <h5 className="mb-4 text-info fw-semibold border-bottom pb-2">Panel de Control</h5>
+      </Link>
       <Nav className="flex-column flex-grow-1">
         <NavItem>
           <NavLink

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 
 // Importa los componentes de página de la Landing Page
 import { HomePage } from '../features/home/pages/HomePage';
@@ -21,13 +21,22 @@ import { isAuthenticated } from '../features/auth/services/auth.service';
 // Importa el Layout del Admin
 import { AdminLayout } from '../layouts/AdminLayout';
 
+// Importa el componente NavigationBar
+import { NavigationBar } from '../shared/components/NavigationBar';
+
 // Componente para proteger rutas privadas
 const PrivateRoute = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to="/login" />;
 };
 
 const AppRouter = () => {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
   return (
+    <>
+      {/* Renderiza la NavigationBar solo si NO estamos en una ruta de administración */}
+      {!isAdminRoute && <NavigationBar />}
       <Routes>
         {/* Rutas Públicas (Landing Page) */}
         <Route path="/" element={<HomePage />} />
@@ -42,11 +51,12 @@ const AppRouter = () => {
           <Route path="usuarios" element={<UsersAdmin />} />
           <Route path="roles" element={<RolesAdmin />} />
           <Route path="companies" element={<CompaniesPage />} />
-          <Route path="productos" element={<ProductsAdmin />} />
+          <Route path="productos" element={<ProductsAdmin/>} />
           <Route path="categorias" element={<CategoriesPage />} />
           {/* Agrega aquí más rutas privadas */}
         </Route>
       </Routes>
+    </>
   );
 };
 

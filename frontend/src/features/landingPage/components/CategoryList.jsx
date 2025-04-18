@@ -7,16 +7,16 @@ export const CategoryList = () => {
   useEffect(() => {
     getCategories()
       .then((data) => {
-        console.log("Datos recibidos de getCategories:", data); // <--- LOG 1
+        console.log("Datos recibidos de getCategories:", data);
 
         if (Array.isArray(data)) {
-          console.log("Los datos son un array:", data); // <--- LOG 2
+          console.log("Los datos son un array:", data); 
           setCategories(data);
         } else if (data && Array.isArray(data.categories)) {
-          console.log("Los datos tienen la propiedad 'categories' que es un array:", data.categories); // <--- LOG 3
+          console.log("Los datos tienen la propiedad 'categories' que es un array:", data.categories); 
           setCategories(data.categories);
         } else {
-          console.error("La respuesta no tiene el formato esperado:", data); // <--- LOG 4
+          console.error("La respuesta no tiene el formato esperado:", data); 
         }
       })
       .catch((error) => {
@@ -24,7 +24,7 @@ export const CategoryList = () => {
       });
   }, []);
 
-  console.log("Estado 'categories' después del useEffect:", categories); // <--- LOG 5
+  console.log("Estado 'categories' después del useEffect:", categories); 
 
   if (!Array.isArray(categories)) {
     return <p className="text-danger text-center">Ocurrió un error al mostrar las categorías.</p>;
@@ -37,7 +37,7 @@ export const CategoryList = () => {
   return (
     <div className="row">
       {categories.map((categoria) => {
-        console.log("Categoría individual en el map:", categoria); // <--- LOG 6
+        console.log("Categoría individual en el map:", categoria); 
         return (
           <div key={categoria.id} className="col-md-6 col-lg-4 mb-4">
             <div className="card h-100 shadow-sm border-0">

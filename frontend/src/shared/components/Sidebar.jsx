@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export const Sidebar = () => {
   return (
-    <div className="bg-light text-dark p-3 d-flex flex-column vh-100">
+    <div className="bg-light text-dark p-4 d-flex flex-column">
       <Link to="/admin" className="text-decoration-none">
         <h5 className="mb-4 text-info fw-semibold border-bottom pb-2">Panel de Control</h5>
       </Link>

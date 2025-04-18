@@ -7,15 +7,18 @@ export const postCategories = async (categoryData) => {
     return response.data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
 export const getCategories = async () => {
   try {
     const response = await axios.get(`${path}/categories`);
+    console.log("Respuesta completa de la API (getCategories):", response); // <--- LOG PARA DEPURACIÓN
     return response.data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
@@ -25,6 +28,7 @@ export const getCategoryById = async (id) => {
     return response.data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
@@ -34,6 +38,7 @@ export const updateCategory = async (id, updatedData) => {
     return response.data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
@@ -43,5 +48,6 @@ export const deleteCategory = async (id) => {
     return response.data;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };

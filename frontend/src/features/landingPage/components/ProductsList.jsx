@@ -16,7 +16,7 @@ export const ProductsList = () => {
       try {
         const data = await getProducts();
         console.log('DATA RECIBIDA EN ProductsList:', data);
-        setProducts(data.products || []);
+        setProducts(data?.products || data || []);
       } catch (err) {
         setError('Error al cargar los productos.');
         console.error('Error:', err);
@@ -69,8 +69,8 @@ export const ProductsList = () => {
                 <Card.Text className="mb-auto text-secondary">
                   {product.description?.substring(0, 150)}...
                 </Card.Text>
-                <Button 
-                  variant="outline-primary" 
+                <Button
+                  variant="outline-primary"
                   onClick={() => handleShowModal(product)}
                   className="mt-3"
                 >
@@ -102,10 +102,10 @@ export const ProductsList = () => {
                   <h4 className="text-primary">Detalles del Producto</h4>
                   <p className="text-muted">Precio: ${selectedProduct.price}</p>
                   <p className="text-secondary">{selectedProduct.description}</p>
-                  
+
                   {/* Puedes agregar más campos aquí según tu modelo de producto */}
                   {selectedProduct.category && (
-                    <p className="text-muted">Categoría: {selectedProduct.category}</p>
+                    <p className="text-muted">Categoría: {selectedProduct.category.name}</p>
                   )}
                   {selectedProduct.stock && (
                     <p className="text-muted">Stock disponible: {selectedProduct.stock}</p>

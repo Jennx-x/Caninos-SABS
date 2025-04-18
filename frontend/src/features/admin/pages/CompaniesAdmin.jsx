@@ -99,7 +99,7 @@ export const CompaniesAdmin = () => {
           <tr>
             <th>ID</th>
             <th>Nombre de la Compañía</th>
-            <th>NIT</th> {/* Añadida columna para el NIT */}
+            <th>NIT</th>
             <th>Dirección</th>
             <th>Acciones</th>
           </tr>
@@ -109,7 +109,7 @@ export const CompaniesAdmin = () => {
             <tr key={company.id}>
               <td>{company.id}</td>
               <td>{company.name}</td>
-              <td>{company.nit}</td> {/* Muestra el NIT en la tabla */}
+              <td>{company.nit}</td>
               <td>{company.address}</td>
               <td>
                 <div className="d-flex gap-2">

@@ -23,7 +23,7 @@ const AdminNavbar = () => {
         </Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">
           <Nav className="align-items-center">
-            <span className="me-3">Bienvenido, <span className="fw-semibold">{fullName}</span></span>
+            <span className="me-3">Bienvenid@, <span className="fw-semibold">{fullName}</span></span>
             <Button variant="outline-danger" onClick={handleLogout}>
               Cerrar Sesión
             </Button>

@@ -12,9 +12,9 @@ export const AdminLayout = () => {
           <Sidebar />
         </Col>
         <Col md={9} className="p-0">
-          <AdminNavbar /> {/* Renderiza la barra de navegación del admin */}
+          <AdminNavbar /> 
           <Container fluid className="p-4">
-            <Outlet /> {/* Donde se renderizarán las páginas del admin (Dashboard, Usuarios, etc.) */}
+            <Outlet /> 
           </Container>
         </Col>
       </Row>

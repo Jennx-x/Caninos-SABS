@@ -2,13 +2,9 @@ import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const cardLinkStyle = {
-  textDecoration: 'none', // Elimina el subrayado del Link
-};
-
 const cardButtonStyle = {
-  fontSize: '0.9rem', // Reduce el tamaño de la fuente del botón si es necesario
-  padding: '0.5rem 1rem', // Ajusta el padding del botón
+  fontSize: '0.9rem', 
+  padding: '0.5rem 1rem', 
 };
 
 export const AdminDashboard = () => {
@@ -87,8 +83,6 @@ export const AdminDashboard = () => {
             </Card.Body>
           </Card>
         </Col>
-
-        {/* Puedes agregar más módulos aquí */}
       </Row>
     </Container>
   );

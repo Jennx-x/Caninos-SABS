@@ -24,7 +24,6 @@ export const CategoryList = () => {
       });
   }, []);
 
-  console.log("Estado 'categories' después del useEffect:", categories); 
 
   if (!Array.isArray(categories)) {
     return <p className="text-danger text-center">Ocurrió un error al mostrar las categorías.</p>;
@@ -36,8 +35,7 @@ export const CategoryList = () => {
 
   return (
     <div className="row">
-      {categories.map((categoria) => {
-        console.log("Categoría individual en el map:", categoria); 
+      {categories.map((categoria) => { 
         return (
           <div key={categoria.id} className="col-md-6 col-lg-4 mb-4">
             <div className="card h-100 shadow-sm border-0">
@@ -46,7 +44,7 @@ export const CategoryList = () => {
                 <p className="card-text">{categoria.description}</p>
               </div>
               <div className="card-footer bg-white border-0 text-end">
-                <span className="badge bg-secondary">{categoria.tipo || 'General'}</span>
+                <span className="badge bg-secondary">{categoria.tipo}</span>
               </div>
             </div>
           </div>

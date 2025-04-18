@@ -10,22 +10,22 @@ import { getCategories } from '../services/categories.service';
 
 const styles = {
   table: {
-    width: '100%', // Asegura que la tabla ocupe todo el ancho del contenedor
+    width: '100%',
   },
   longTextCell: {
-    maxWidth: '150px', // Reducir el ancho máximo para obligar al texto a acortarse antes
+    maxWidth: '150px', 
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
   imageUrlCell: {
-    maxWidth: '100px', // Reducir el ancho máximo para la URL
+    maxWidth: '100px', 
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
   actionsCell: {
-    width: '120px', // Ancho fijo para las acciones para evitar que se expandan demasiado
+    width: '120px', 
   },
 };
 
@@ -40,7 +40,7 @@ export const ProductsAdmin = () => {
     price: '',
     stock: '',
     categoryId: '',
-    imageUrl: '', // Nuevo campo para la URL de la imagen
+    imageUrl: '', 
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -99,13 +99,13 @@ export const ProductsAdmin = () => {
 
   const openCreateModal = () => {
     setModalMode('create');
-    setCurrentProduct({ name: '', description: '', price: '', stock: '', categoryId: '', imageUrl: '' }); // Inicializa imageUrl
+    setCurrentProduct({ name: '', description: '', price: '', stock: '', categoryId: '', imageUrl: '' }); 
     setShowModal(true);
   };
 
   const openEditModal = (product) => {
     setModalMode('edit');
-    setCurrentProduct({ ...product, imageUrl: product.imageUrl || '' }); // Asegura que imageUrl esté presente
+    setCurrentProduct({ ...product, imageUrl: product.imageUrl || '' }); 
     setShowModal(true);
   };
 
@@ -180,7 +180,7 @@ export const ProductsAdmin = () => {
             <th>Precio</th>
             <th>Stock</th>
             <th>Categoría</th>
-            <th style={styles.imageUrlCell}>URL Imagen</th> {/* Nueva columna */}
+            <th style={styles.imageUrlCell}>URL Imagen</th> 
             <th style={styles.actionsCell}>Acciones</th>
           </tr>
         </thead>
@@ -193,7 +193,7 @@ export const ProductsAdmin = () => {
               <td>{product.price}</td>
               <td>{product.stock}</td>
               <td>{getCategoryName(product.categoryId)}</td>
-              <td style={styles.imageUrlCell}>{product.imageUrl}</td> {/* Aplica el estilo a la celda de la URL */}
+              <td style={styles.imageUrlCell}>{product.imageUrl}</td> 
               <td style={styles.actionsCell}>
                 <div className="d-flex gap-2" style={{ flexWrap: 'nowrap' }}>
                   <Button variant="info" size="sm" style={{ padding: '0.25rem 0.5rem', fontSize: '0.8rem' }} onClick={() => openEditModal(product)}>Editar</Button>
@@ -205,7 +205,7 @@ export const ProductsAdmin = () => {
         </tbody>
       </Table>
 
-      <Modal show={showModal} onHide={closeModal} size="lg"> {/* Puedes probar con 'md' o 'sm' si el contenido del modal lo permite */}
+      <Modal show={showModal} onHide={closeModal} size="lg"> 
         <Modal.Header closeButton>
           <Modal.Title>{modalMode === 'create' ? 'Crear Nuevo Producto' : 'Editar Producto'}</Modal.Title>
         </Modal.Header>
@@ -244,7 +244,6 @@ export const ProductsAdmin = () => {
                 ))}
               </Form.Control>
             </Form.Group>
-            {/* Nuevo campo para la URL de la imagen */}
             <Form.Group className="mb-3">
               <Form.Label>URL Imagen</Form.Label>
               <Form.Control

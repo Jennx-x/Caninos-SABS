@@ -5,8 +5,8 @@ import { getRoles, postRoles, updateRole, deleteRole } from '../services/roles.s
 export const RolesAdmin = () => {
   const [roles, setRoles] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [modalMode, setModalMode] = useState('create'); // 'create' or 'edit'
-  const [currentRole, setCurrentRole] = useState({ name: '', description: '' }); // Añadida 'description' al estado
+  const [modalMode, setModalMode] = useState('create'); 
+  const [currentRole, setCurrentRole] = useState({ name: '', description: '' }); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -29,7 +29,7 @@ export const RolesAdmin = () => {
 
   const openCreateModal = () => {
     setModalMode('create');
-    setCurrentRole({ name: '', description: '' }); // Añadida 'description' al estado inicial del modal de creación
+    setCurrentRole({ name: '', description: '' }); 
     setShowModal(true);
   };
 
@@ -99,7 +99,7 @@ export const RolesAdmin = () => {
           <tr>
             <th>ID</th>
             <th>Nombre del Rol</th>
-            <th>Descripción</th> {/* Añadida columna para la descripción */}
+            <th>Descripción</th> 
             <th>Acciones</th>
           </tr>
         </thead>
@@ -108,7 +108,7 @@ export const RolesAdmin = () => {
             <tr key={role.id}>
               <td>{role.id}</td>
               <td>{role.name}</td>
-              <td>{role.description}</td> {/* Muestra la descripción en la tabla */}
+              <td>{role.description}</td> 
               <td>
                 <div className="d-flex gap-2">
                   <Button variant="info" size="sm" className="me-2" onClick={() => openEditModal(role)}>Editar</Button>

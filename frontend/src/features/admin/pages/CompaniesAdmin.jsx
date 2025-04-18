@@ -5,8 +5,8 @@ import { getCompanies, postCompanies, updateCompany, deleteCompany } from '../se
 export const CompaniesAdmin = () => {
   const [companies, setCompanies] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [modalMode, setModalMode] = useState('create'); // 'create' or 'edit'
-  const [currentCompany, setCurrentCompany] = useState({ name: '', nit: '', address: '' }); // Añadido 'nit' al estado inicial
+  const [modalMode, setModalMode] = useState('create');
+  const [currentCompany, setCurrentCompany] = useState({ name: '', nit: '', address: '' }); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -29,7 +29,7 @@ export const CompaniesAdmin = () => {
 
   const openCreateModal = () => {
     setModalMode('create');
-    setCurrentCompany({ name: '', nit: '', address: '' }); // Añadido 'nit' al estado inicial del modal de creación
+    setCurrentCompany({ name: '', nit: '', address: '' }); 
     setShowModal(true);
   };
 

@@ -82,7 +82,6 @@ export const ProductsList = () => {
         ))}
       </Row>
 
-      {/* Modal para mostrar más información */}
       <Modal show={showModal} onHide={handleCloseModal} centered size="lg">
         {selectedProduct && (
           <>
@@ -103,7 +102,6 @@ export const ProductsList = () => {
                   <p className="text-muted">Precio: ${selectedProduct.price}</p>
                   <p className="text-secondary">{selectedProduct.description}</p>
 
-                  {/* Puedes agregar más campos aquí según tu modelo de producto */}
                   {selectedProduct.category && (
                     <p className="text-muted">Categoría: {selectedProduct.category.name}</p>
                   )}

@@ -23,19 +23,15 @@ export const CategoriesAdmin = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await getCategories(); // Llama a la función del servicio
-            console.log("Data recibida en CategoriesAdmin:", response); // <--- LOG PARA DEPURACIÓN
+            const response = await getCategories(); 
+            console.log("Data recibida en CategoriesAdmin:", response); 
 
             if (Array.isArray(response)) {
                 setCategories(response);
             } else if (response && Array.isArray(response.data)) {
-                setCategories(response.data); // Asume que el array está dentro de response.data
+                setCategories(response.data); 
             } else if (response && Array.isArray(response.categories)) {
-                setCategories(response.categories); // Asume que el array está dentro de response.categories
-            }
-             else {
-                setError('Error: Los datos de categorías recibidos no son un array en el formato esperado.');
-                setCategories([]);
+                setCategories(response.categories); 
             }
         } catch (err) {
             setError(err.message || 'Error al cargar categorías');

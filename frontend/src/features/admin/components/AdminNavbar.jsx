@@ -1,18 +1,15 @@
 import React from 'react';
 import { Navbar, Nav, Button, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../../auth/services/auth.service'; // Asegúrate de la ruta correcta
+import { logout } from '../../auth/services/auth.service'; 
 
 const AdminNavbar = () => {
   const navigate = useNavigate();
-  // Aquí deberías tener acceso al nombre del usuario autenticado
-  // Esto podría venir de un estado global (Redux, Context API) o de una función
-  // que lo obtenga del almacenamiento local o de tu servicio de autenticación.
-  const fullName = localStorage.getItem('fullName') || 'Usuario'; // Ejemplo básico
+  const fullName = localStorage.getItem('fullName') || 'Usuario'; 
 
   const handleLogout = () => {
-    logout(); // Llama a tu servicio de cierre de sesión
-    navigate('/login'); // Redirige a la página de inicio de sesión
+    logout(); 
+    navigate('/login'); 
   };
 
   return (

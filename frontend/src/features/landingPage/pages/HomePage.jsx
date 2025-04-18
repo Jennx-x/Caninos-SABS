@@ -1,4 +1,3 @@
-// src/features/home/pages/HomePage.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 

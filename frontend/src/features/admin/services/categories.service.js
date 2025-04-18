@@ -14,7 +14,7 @@ export const postCategories = async (categoryData) => {
 export const getCategories = async () => {
   try {
     const response = await axios.get(`${path}/categories`);
-    console.log("Respuesta completa de la API (getCategories):", response); // <--- LOG PARA DEPURACIÓN
+    console.log("Respuesta completa de la API (getCategories):", response); 
     return response.data;
   } catch (error) {
     console.error(error);

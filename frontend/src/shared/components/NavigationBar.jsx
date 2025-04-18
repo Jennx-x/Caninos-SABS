@@ -7,7 +7,7 @@ export const NavigationBar = () => {
       <div className="container">
         <Link className="navbar-brand d-flex align-items-center" to="/">
           <img
-            src="/logo.png1.png" // 
+            src="/logo.png1.png" 
             alt="Caninos SABS Logo"
             width="40"
             height="40"

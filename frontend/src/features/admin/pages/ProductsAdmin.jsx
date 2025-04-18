@@ -156,7 +156,7 @@ export const ProductsAdmin = () => {
   };
 
   if (loading || loadingCategories) {
-    return <Container className="mt-5">Cargando productos y categorías...</Container>;
+    return <Container className="mt-5">Cargando productos ...</Container>;
   }
 
   if (error || errorCategories) {

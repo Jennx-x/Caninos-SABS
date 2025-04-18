@@ -35,6 +35,7 @@ const login = async (req, res) => {
     res.json({
       message: 'Login exitoso',
       token,
+      fullName: user.fullName //Añadimos a la Api para poder tener el nombre en la barra de navegación del Admin
     });
   } catch (error) {
     console.error(error);

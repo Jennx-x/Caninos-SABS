@@ -7,7 +7,6 @@ export const login = async (credentials) => {
     console.log('Respuesta del Login:', response.data); // <--- Agrega esto
     localStorage.setItem('token', response.data.token);
     localStorage.setItem('fullName', response.data.fullName);
-    console.log('fullName guardado en localStorage:', localStorage.getItem('fullName')); // <--- Agrega esto
     return response.data;
   } catch (error) {
     console.error(error);

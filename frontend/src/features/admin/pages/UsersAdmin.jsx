@@ -1,30 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table, Button, Modal, Form, Alert } from 'react-bootstrap';
 import { getUsers, postUsers, updateUser, deleteUser } from '../services/users.service';
+import { getRoles } from '../services/roles.service';
+import { getCompanies } from '../../companies/services/companies.service';
 
 export const UsersAdmin = () => {
   const [users, setUsers] = useState([]);
+  const [roles, setRoles] = useState([]);
+  const [companies, setCompanies] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [modalMode, setModalMode] = useState('create'); 
+  const [modalMode, setModalMode] = useState('create');
   const [currentUser, setCurrentUser] = useState({ fullName: '', email: '', password: '', roleId: '', companyId: '' });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchUsers();
+    fetchData();
   }, []);
 
-  const fetchUsers = async () => {
+  const fetchData = async () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await getUsers();
-      setUsers(data);
+      const usersData = await getUsers();
+      const rolesData = await getRoles();
+      const companiesData = await getCompanies();
+      setUsers(usersData);
+      setRoles(rolesData);
+      setCompanies(companiesData);
     } catch (err) {
-      setError(err.message || 'Error al cargar usuarios');
+      setError(err.message || 'Error al cargar usuarios, roles o compañías');
     } finally {
       setLoading(false);
     }
+  };
+
+  const getRoleName = (roleId) => {
+    const role = roles.find(r => r.id === roleId);
+    return role ? role.name : 'Desconocido';
+  };
+
+  const getCompanyName = (companyId) => {
+    const company = companies.find(c => c.id === companyId);
+    return company ? company.name : 'Desconocida';
   };
 
   const openCreateModal = () => {
@@ -53,7 +71,7 @@ export const UsersAdmin = () => {
     if (modalMode === 'create') {
       try {
         await postUsers(currentUser);
-        fetchUsers();
+        fetchData();
         closeModal();
       } catch (err) {
         setError(err.message || 'Error al crear usuario');
@@ -61,7 +79,7 @@ export const UsersAdmin = () => {
     } else if (modalMode === 'edit') {
       try {
         await updateUser(currentUser.id, currentUser);
-        fetchUsers();
+        fetchData();
         closeModal();
       } catch (err) {
         setError(err.message || 'Error al actualizar usuario');
@@ -73,7 +91,7 @@ export const UsersAdmin = () => {
     if (window.confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
       try {
         await deleteUser(id);
-        fetchUsers();
+        fetchData();
       } catch (err) {
         setError(err.message || 'Error al eliminar usuario');
       }
@@ -81,7 +99,7 @@ export const UsersAdmin = () => {
   };
 
   if (loading) {
-    return <Container className="mt-5">Cargando usuarios...</Container>;
+    return <Container className="mt-5">Cargando...</Container>;
   }
 
   if (error) {
@@ -100,8 +118,8 @@ export const UsersAdmin = () => {
             <th>ID</th>
             <th>Nombre Completo</th>
             <th>Email</th>
-            <th>Rol ID</th>
-            <th>Compañía ID</th>
+            <th>Rol</th>
+            <th>Compañía</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -111,11 +129,13 @@ export const UsersAdmin = () => {
               <td>{user.id}</td>
               <td>{user.fullName}</td>
               <td>{user.email}</td>
-              <td>{user.roleId}</td>
-              <td>{user.companyId}</td>
+              <td>{getRoleName(user.roleId)}</td>
+              <td>{getCompanyName(user.companyId)}</td>
               <td>
-                <Button variant="info" size="sm" className="me-2" onClick={() => openEditModal(user)}>Editar</Button>
-                <Button variant="danger" size="sm" onClick={() => handleDelete(user.id)}>Eliminar</Button>
+                <div className="d-flex gap-2"> {/* Contenedor para los botones con espacio */}
+                  <Button variant="info" size="sm" onClick={() => openEditModal(user)}>Editar</Button>
+                  <Button variant="danger" size="sm" onClick={() => handleDelete(user.id)}>Eliminar</Button>
+                </div>
               </td>
             </tr>
           ))}
@@ -160,14 +180,19 @@ export const UsersAdmin = () => {
               </Form.Group>
             )}
             <Form.Group className="mb-3">
-              <Form.Label>Rol ID</Form.Label>
+              <Form.Label>Rol</Form.Label>
               <Form.Control
-                type="number"
+                as="select"
                 name="roleId"
                 value={currentUser.roleId}
                 onChange={handleInputChange}
                 required
-              />
+              >
+                <option value="">Seleccionar Rol</option>
+                {roles.map(role => (
+                  <option key={role.id} value={role.id}>{role.name}</option>
+                ))}
+              </Form.Control>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Compañía ID</Form.Label>

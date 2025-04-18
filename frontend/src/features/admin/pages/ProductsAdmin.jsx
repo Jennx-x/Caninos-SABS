@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Table, Button, Modal, Form, Alert } from 'react-bootstrap';
+import { Container, Table, Button, Modal, Form, Alert, Row, Col } from 'react-bootstrap';
 import {
   getProducts,
   postProducts,
@@ -9,23 +9,17 @@ import {
 import { getCategories } from '../services/categories.service';
 
 const styles = {
-  table: {
-    width: '100%',
-  },
   longTextCell: {
-    maxWidth: '150px', 
+    maxWidth: '150px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
   imageUrlCell: {
-    maxWidth: '100px', 
+    maxWidth: '100px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-  },
-  actionsCell: {
-    width: '120px', 
   },
 };
 
@@ -40,7 +34,7 @@ export const ProductsAdmin = () => {
     price: '',
     stock: '',
     categoryId: '',
-    imageUrl: '', 
+    imageUrl: '',
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -99,13 +93,13 @@ export const ProductsAdmin = () => {
 
   const openCreateModal = () => {
     setModalMode('create');
-    setCurrentProduct({ name: '', description: '', price: '', stock: '', categoryId: '', imageUrl: '' }); 
+    setCurrentProduct({ name: '', description: '', price: '', stock: '', categoryId: '', imageUrl: '' });
     setShowModal(true);
   };
 
   const openEditModal = (product) => {
     setModalMode('edit');
-    setCurrentProduct({ ...product, imageUrl: product.imageUrl || '' }); 
+    setCurrentProduct({ ...product, imageUrl: product.imageUrl || '' });
     setShowModal(true);
   };
 
@@ -156,93 +150,122 @@ export const ProductsAdmin = () => {
   };
 
   if (loading || loadingCategories) {
-    return <Container className="mt-5">Cargando productos ...</Container>;
+    return <Container className="mt-4">Cargando productos...</Container>;
   }
 
   if (error || errorCategories) {
-    return <Container className="mt-5">
-      <Alert variant="danger">{error || errorCategories}</Alert>
-    </Container>;
+    return (
+      <Container className="mt-4">
+        <Alert variant="danger">{error || errorCategories}</Alert>
+      </Container>
+    );
   }
 
   return (
-    <Container className="mt-5">
-      <h2 className="mb-4">Gestión de Productos</h2>
-      <Button variant="primary" className="mb-3" onClick={openCreateModal}>
-        Crear Nuevo Producto
-      </Button>
-      <Table striped bordered hover style={styles.table}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th style={styles.longTextCell}>Nombre</th>
-            <th style={styles.longTextCell}>Descripción</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Categoría</th>
-            <th style={styles.imageUrlCell}>URL Imagen</th> 
-            <th style={styles.actionsCell}>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.id}</td>
-              <td style={styles.longTextCell}>{product.name}</td>
-              <td style={styles.longTextCell}>{product.description}</td>
-              <td>{product.price}</td>
-              <td>{product.stock}</td>
-              <td>{getCategoryName(product.categoryId)}</td>
-              <td style={styles.imageUrlCell}>{product.imageUrl}</td> 
-              <td style={styles.actionsCell}>
-                <div className="d-flex gap-2" style={{ flexWrap: 'nowrap' }}>
-                  <Button variant="info" size="sm" style={{ padding: '0.25rem 0.5rem', fontSize: '0.8rem' }} onClick={() => openEditModal(product)}>Editar</Button>
-                  <Button variant="danger" size="sm" style={{ padding: '0.25rem 0.5rem', fontSize: '0.8rem' }} onClick={() => handleDelete(product.id)}>Eliminar</Button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+    <Container className="mt-4">
+      <Row className="mb-3 d-flex justify-content-between align-items-center">
+        <Col xs="auto">
+          <h2 className="mb-0">Gestión de Productos</h2>
+        </Col>
+        <Col xs="auto">
+          <Button variant="primary" onClick={openCreateModal}>
+            Crear Nuevo Producto
+          </Button>
+        </Col>
+      </Row>
 
-      <Modal show={showModal} onHide={closeModal} size="lg"> 
+      <div className="table-responsive">
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Categoría</th>
+              <th>URL Imagen</th>
+              <th style={{ minWidth: '150px' }}>Acciones</th> {/* Aumentado el minWidth a 150px */}
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td>{product.id}</td>
+                <td style={styles.longTextCell}>{product.name}</td>
+                <td style={styles.longTextCell}>{product.description}</td>
+                <td>{product.price}</td>
+                <td>{product.stock}</td>
+                <td>{getCategoryName(product.categoryId)}</td>
+                <td style={styles.imageUrlCell}>{product.imageUrl}</td>
+                <td className="d-flex gap-2 flex-wrap">
+                  <Button
+                    variant="info"
+                    size="sm"
+                    className="mb-1 mb-md-0"
+                    style={{ padding: '0.25rem 0.5rem', fontSize: '0.8rem' }}
+                    onClick={() => openEditModal(product)}
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    className="mb-1 mb-md-0"
+                    style={{ padding: '0.25rem 0.5rem', fontSize: '0.8rem' }}
+                    onClick={() => handleDelete(product.id)}
+                  >
+                    Eliminar
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+
+      <Modal show={showModal} onHide={closeModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>{modalMode === 'create' ? 'Crear Nuevo Producto' : 'Editar Producto'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
-              <Form.Label>Nombre</Form.Label>
-              <Form.Control type="text" name="name" value={currentProduct.name} onChange={handleInputChange} required />
-            </Form.Group>
+            <Row>
+              <Col md={6} className="mb-3">
+                <Form.Label>Nombre</Form.Label>
+                <Form.Control type="text" name="name" value={currentProduct.name} onChange={handleInputChange} required />
+              </Col>
+              <Col md={6} className="mb-3">
+                <Form.Label>Precio</Form.Label>
+                <Form.Control type="number" name="price" value={currentProduct.price} onChange={handleInputChange} required />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6} className="mb-3">
+                <Form.Label>Stock</Form.Label>
+                <Form.Control type="number" name="stock" value={currentProduct.stock} onChange={handleInputChange} required />
+              </Col>
+              <Col md={6} className="mb-3">
+                <Form.Label>Categoría</Form.Label>
+                <Form.Control
+                  as="select"
+                  name="categoryId"
+                  value={currentProduct.categoryId}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Seleccionar Categoría</option>
+                  {categories.map(category => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Col>
+            </Row>
             <Form.Group className="mb-3">
               <Form.Label>Descripción</Form.Label>
               <Form.Control as="textarea" name="description" value={currentProduct.description} onChange={handleInputChange} />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Precio</Form.Label>
-              <Form.Control type="number" name="price" value={currentProduct.price} onChange={handleInputChange} required />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Stock</Form.Label>
-              <Form.Control type="number" name="stock" value={currentProduct.stock} onChange={handleInputChange} required />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Categoría</Form.Label>
-              <Form.Control
-                as="select"
-                name="categoryId"
-                value={currentProduct.categoryId}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="">Seleccionar Categoría</option>
-                {categories.map(category => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </Form.Control>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>URL Imagen</Form.Label>

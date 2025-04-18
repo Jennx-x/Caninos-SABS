@@ -1,66 +1,72 @@
-import React from 'react';
-import { Nav, NavItem, NavLink } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Nav, NavItem, NavLink, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export const Sidebar = () => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <div className="bg-light text-dark p-4 d-flex flex-column">
-      <Link to="/admin" className="text-decoration-none">
-        <h5 className="mb-4 text-info fw-semibold border-bottom pb-2">Panel de Control</h5>
+    <div
+      className={`bg-light text-dark d-none d-md-flex flex-column p-3`}
+      style={{
+        width: isCollapsed ? '65px' : '200px',
+        minHeight: '100vh',
+        transition: 'width 0.3s ease-in-out',
+        overflowX: 'hidden',
+        boxShadow: 'none', 
+        backgroundColor: 'white', 
+      }}
+    >
+      <div className="d-flex justify-content-end mb-3">
+        <Button
+          variant="outline-secondary"
+          size="sm"
+          onClick={toggleCollapse}
+          className="rounded-circle p-1"
+        >
+          {isCollapsed ? '☰' : '×'}
+        </Button>
+      </div>
+
+      <Link to="/admin" className="text-decoration-none mb-3">
+        <h5
+          className="text-info fw-semibold border-bottom pb-2 mb-0"
+          style={{ display: isCollapsed ? 'none' : 'block' }}
+        >
+          Panel
+        </h5>
       </Link>
+
       <Nav className="flex-column flex-grow-1">
-        <NavItem>
-          <NavLink
-            as={Link}
-            to="/admin/usuarios"
-            className="nav-link-dark mb-2 rounded-pill p-2 bg-info text-white fw-bold"
-          >
-            <i className="bi bi-people me-2"></i> Usuarios
-          </NavLink>
-        </NavItem>
-        <hr className="text-muted my-2" />
-        <NavItem>
-          <NavLink
-            as={Link}
-            to="/admin/roles"
-            className="nav-link-dark mb-2 rounded-pill p-2 bg-info text-white fw-bold"
-          >
-            <i className="bi bi-shield-lock me-2"></i> Roles
-          </NavLink>
-        </NavItem>
-        <hr className="text-muted my-2" />
-        <NavItem>
-          <NavLink
-            as={Link}
-            to="/admin/companies"
-            className="nav-link-dark mb-2 rounded-pill p-2 bg-info text-white fw-bold"
-          >
-            <i className="bi bi-building me-2"></i> Compañías
-          </NavLink>
-        </NavItem>
-        <hr className="text-muted my-2" />
-        <NavItem>
-          <NavLink
-            as={Link}
-            to="/admin/productos"
-            className="nav-link-dark mb-2 rounded-pill p-2 bg-info text-white fw-bold"
-          >
-            <i className="bi bi-box-seam me-2"></i> Productos
-          </NavLink>
-        </NavItem>
-        <hr className="text-muted my-2" />
-        <NavItem>
-          <NavLink
-            as={Link}
-            to="/admin/categorias"
-            className="nav-link-dark mb-2 rounded-pill p-2 bg-info text-white fw-bold"
-          >
-            <i className="bi bi-tags me-2"></i> Categorías
-          </NavLink>
-        </NavItem>
-
+        {[
+          { to: '/admin/usuarios', label: 'Usuarios' },
+          { to: '/admin/roles', label: 'Roles' },
+          { to: '/admin/companies', label: 'Compañías' },
+          { to: '/admin/productos', label: 'Productos' },
+          { to: '/admin/categorias', label: 'Categorías' },
+        ].map((item, idx) => (
+          <React.Fragment key={item.to}>
+            <NavItem className="mb-2">
+              <NavLink
+                as={Link}
+                to={item.to}
+                className={`nav-link-dark rounded ${isCollapsed ? 'p-2 text-center' : 'p-2'}`}
+              >
+                <span style={{ display: isCollapsed ? 'none' : 'inline' }}>
+                  {item.label}
+                </span>
+              </NavLink>
+            </NavItem>
+            {idx < 4 && (
+              <hr className="text-muted my-2" style={{ display: isCollapsed ? 'none' : 'block' }} />
+            )}
+          </React.Fragment>
+        ))}
       </Nav>
-
     </div>
   );
 };

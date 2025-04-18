@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Table, Button, Modal, Form, Alert } from 'react-bootstrap';
+import { Container, Table, Button, Modal, Form, Alert, Row, Col } from 'react-bootstrap';
 import { getCompanies, postCompanies, updateCompany, deleteCompany } from '../services/companies.service';
 
 export const CompaniesAdmin = () => {
   const [companies, setCompanies] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState('create');
-  const [currentCompany, setCurrentCompany] = useState({ name: '', nit: '', address: '' }); 
+  const [currentCompany, setCurrentCompany] = useState({ id: null, name: '', nit: '', address: '' });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -29,7 +29,7 @@ export const CompaniesAdmin = () => {
 
   const openCreateModal = () => {
     setModalMode('create');
-    setCurrentCompany({ name: '', nit: '', address: '' }); 
+    setCurrentCompany({ id: null, name: '', nit: '', address: '' });
     setShowModal(true);
   };
 
@@ -81,46 +81,62 @@ export const CompaniesAdmin = () => {
   };
 
   if (loading) {
-    return <Container className="mt-5">Cargando compañías...</Container>;
+    return <Container className="mt-4">Cargando compañías...</Container>;
   }
 
   if (error) {
-    return <Container className="mt-5"><Alert variant="danger">{error}</Alert></Container>;
+    return (
+      <Container className="mt-4">
+        <Alert variant="danger">{error}</Alert>
+      </Container>
+    );
   }
 
   return (
-    <Container className="mt-5">
-      <h2 className="mb-4">Gestión de Compañías</h2>
-      <Button variant="primary" className="mb-3" onClick={openCreateModal}>
-        Crear Nueva Compañía
-      </Button>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre de la Compañía</th>
-            <th>NIT</th>
-            <th>Dirección</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {companies.map(company => (
-            <tr key={company.id}>
-              <td>{company.id}</td>
-              <td>{company.name}</td>
-              <td>{company.nit}</td>
-              <td>{company.address}</td>
-              <td>
-                <div className="d-flex gap-2">
-                  <Button variant="info" size="sm" onClick={() => openEditModal(company)}>Editar</Button>
-                  <Button variant="danger" size="sm" onClick={() => handleDelete(company.id)}>Eliminar</Button>
-                </div>
-              </td>
+    <Container className="mt-4">
+      <Row className="mb-3 d-flex justify-content-between align-items-center">
+        <Col xs="auto">
+          <h2 className="mb-0">Gestión de Compañías</h2>
+        </Col>
+        <Col xs="auto">
+          <Button variant="primary" onClick={openCreateModal}>
+            Crear Nueva Compañía
+          </Button>
+        </Col>
+      </Row>
+
+      <div className="table-responsive">
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre de la Compañía</th>
+              <th>NIT</th>
+              <th>Dirección</th>
+              <th style={{ minWidth: '120px' }}>Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {companies.map(company => (
+              <tr key={company.id}>
+                <td>{company.id}</td>
+                <td>{company.name}</td>
+                <td>{company.nit}</td>
+                <td>{company.address}</td>
+                <td className="d-flex gap-2 flex-wrap">
+                  <Button variant="info" size="sm" className="mb-1 mb-md-0" onClick={() => openEditModal(company)}>
+                    Editar
+                  </Button>
+                  <Button variant="danger" size="sm" className="mb-1 mb-md-0" onClick={() => handleDelete(company.id)}>
+                    Eliminar
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>{modalMode === 'create' ? 'Crear Nueva Compañía' : 'Editar Compañía'}</Modal.Title>

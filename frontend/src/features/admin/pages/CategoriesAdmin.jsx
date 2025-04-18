@@ -105,35 +105,40 @@ export const CategoriesAdmin = () => {
 
     return (
         <Container className="mt-5">
-            <h2 className="mb-4">Gestión de Categorías</h2>
-            <Button variant="primary" className="mb-3" onClick={openCreateModal}>
-                Crear Nueva Categoría
-            </Button>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {categories.map((category) => (
-                        <tr key={category.id}>
-                            <td>{category.id}</td>
-                            <td>{category.name}</td>
-                            <td>{category.description}</td>
-                            <td>
-                                <div className="d-flex gap-2">
-                                    <Button variant="info" size="sm" onClick={() => openEditModal(category)}>Editar</Button>
-                                    <Button variant="danger" size="sm" onClick={() => handleDelete(category.id)}>Eliminar</Button>
-                                </div>
-                            </td>
+            <div className="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
+                <h2 className="mb-2 mb-md-0">Gestión de Categorías</h2>
+                <Button variant="primary" onClick={openCreateModal}>
+                    Crear Nueva Categoría
+                </Button>
+            </div>
+
+            <div className="table-responsive">
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {categories.map((category) => (
+                            <tr key={category.id}>
+                                <td>{category.id}</td>
+                                <td>{category.name}</td>
+                                <td>{category.description}</td>
+                                <td>
+                                    <div className="d-flex flex-column flex-md-row gap-2">
+                                        <Button variant="info" size="sm" onClick={() => openEditModal(category)}>Editar</Button>
+                                        <Button variant="danger" size="sm" onClick={() => handleDelete(category.id)}>Eliminar</Button>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+            </div>
 
             <Modal show={showModal} onHide={closeModal}>
                 <Modal.Header closeButton>

@@ -15,7 +15,6 @@ export const ProductsList = () => {
       setError(null);
       try {
         const data = await getProducts();
-        console.log('DATA RECIBIDA EN ProductsList:', data);
         setProducts(data?.products || data || []);
       } catch (err) {
         setError('Error al cargar los productos.');
@@ -52,7 +51,6 @@ export const ProductsList = () => {
 
   return (
     <div className="py-5">
-      <h2 className="text-center mb-4 text-info">Nuestros Productos</h2>
       <Row xs={1} sm={2} md={3} lg={4} className="g-4">
         {products.map(product => (
           <Col key={product.id}>

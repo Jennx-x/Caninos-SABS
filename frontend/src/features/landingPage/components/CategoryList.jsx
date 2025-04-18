@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getCategories } from '../../admin/services/categories.service';
+import { Row, Col, Card } from 'react-bootstrap';
 
 export const CategoryList = () => {
   const [categories, setCategories] = useState([]);
@@ -7,23 +8,16 @@ export const CategoryList = () => {
   useEffect(() => {
     getCategories()
       .then((data) => {
-        console.log("Datos recibidos de getCategories:", data);
-
         if (Array.isArray(data)) {
-          console.log("Los datos son un array:", data); 
           setCategories(data);
         } else if (data && Array.isArray(data.categories)) {
-          console.log("Los datos tienen la propiedad 'categories' que es un array:", data.categories); 
           setCategories(data.categories);
-        } else {
-          console.error("La respuesta no tiene el formato esperado:", data); 
         }
       })
-      .catch((error) => {
-        console.error("Error al cargar las categorías:", error);
+      .catch(() => {
+        
       });
   }, []);
-
 
   if (!Array.isArray(categories)) {
     return <p className="text-danger text-center">Ocurrió un error al mostrar las categorías.</p>;
@@ -34,22 +28,19 @@ export const CategoryList = () => {
   }
 
   return (
-    <div className="row">
-      {categories.map((categoria) => { 
-        return (
-          <div key={categoria.id} className="col-md-6 col-lg-4 mb-4">
-            <div className="card h-100 shadow-sm border-0">
-              <div className="card-body">
-                <h5 className="card-title text-primary">{categoria.name}</h5>
-                <p className="card-text">{categoria.description}</p>
-              </div>
-              <div className="card-footer bg-white border-0 text-end">
-                <span className="badge bg-secondary">{categoria.tipo}</span>
-              </div>
-            </div>
-          </div>
-        );
-      })}
+    <div className="py-5">
+      <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+        {categories.map((categoria) => (
+          <Col key={categoria.id}>
+            <Card className="h-100 shadow-sm border-0">
+              <Card.Body>
+                <Card.Title className="text-primary">{categoria.name}</Card.Title>
+                <Card.Text>{categoria.description}</Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
     </div>
   );
 };

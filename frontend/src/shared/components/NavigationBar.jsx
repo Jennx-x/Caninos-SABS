@@ -1,53 +1,33 @@
 import React from 'react';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export const NavigationBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
-      <div className="container">
-        <Link className="navbar-brand d-flex align-items-center" to="/">
+    <Navbar expand="lg" bg="white" variant="light" className="shadow-sm py-3">
+      <Container>
+        <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
           <img
-            src="/logo.png1.png" 
+            src="/logo.png1.png"
             alt="Caninos SABS Logo"
             width="40"
             height="40"
             className="me-2"
           />
           <span className="fw-bold text-primary fs-4">Caninos SABS</span>
-        </Link>
+        </Navbar.Brand>
 
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item mx-2">
-              <Link className="nav-link text-dark" to="/">Inicio</Link>
-            </li>
-            <li className="nav-item mx-2">
-              <Link className="nav-link text-dark" to="/quienes-somos">Quiénes Somos</Link>
-            </li>
-            <li className="nav-item mx-2">
-              <Link className="nav-link text-dark" to="/productos">Nuestros Productos</Link>
-            </li>
-            <li className="nav-item mx-2">
-              <Link className="nav-link text-dark" to="/categorias">Nuestras Categorías</Link>
-            </li>
-            <li className="nav-item mx-2">
-              <Link className="nav-link text-primary fw-bold" to="/login">Login</Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+          <Nav>
+            <Nav.Link as={Link} to="/" className="text-dark mx-2">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/quienes-somos" className="text-dark mx-2">Quiénes Somos</Nav.Link>
+            <Nav.Link as={Link} to="/productos" className="text-dark mx-2">Nuestros Productos</Nav.Link>
+            <Nav.Link as={Link} to="/categorias" className="text-dark mx-2">Nuestras Categorías</Nav.Link>
+            <Nav.Link as={Link} to="/login" className="text-primary fw-bold mx-2">Login</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
